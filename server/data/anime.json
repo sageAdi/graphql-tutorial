@@ -1,0 +1,14 @@
+[
+  {
+    "_id": "606fdc60440f3f26e8ca4998",
+    "name": "DBZ",
+    "genre": "Action",
+    "writerId": "606fdbe03a8e4616accc3049"
+  },
+  {
+    "_id": "606feff29a0c8839f0336239",
+    "name": "One Punch Man",
+    "genre": "Action",
+    "writerId": "606fdc14b4423641281cfa72"
+  }
+]
