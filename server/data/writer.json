@@ -1,4 +1,1 @@
-[
-  { "_id": "606fdbe03a8e4616accc3049", "name": "sageAdi" },
-  { "_id": "606fdc14b4423641281cfa72", "name": "Aditya" }
-]
+[{"name":"sageAdi","age":"22","id":"1"},{"name":"Aditya","age":"23","id":"2"},{"name":"Aditya Maurya","age":"23","id":"3"},{"name":"Anamika Maurya","age":"18","id":"4"},{"name":"alpha008","age":"24","id":"5"}]

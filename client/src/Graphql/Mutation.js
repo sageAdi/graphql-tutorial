@@ -8,3 +8,10 @@ export const CREATE_ANIME = gql`
     }
   }
 `;
+export const CREATE_WRITER = gql`
+  mutation AddWriter($name: String!, $age: String!) {
+    addWriter(name: $name, age: $age) {
+      name
+    }
+  }
+`;

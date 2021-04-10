@@ -1,14 +1,32 @@
 [
-  {
-    "_id": "606fdc60440f3f26e8ca4998",
-    "name": "DBZ",
-    "genre": "Action",
-    "writerId": "606fdbe03a8e4616accc3049"
-  },
-  {
-    "_id": "606feff29a0c8839f0336239",
-    "name": "One Punch Man",
-    "genre": "Action",
-    "writerId": "606fdc14b4423641281cfa72"
-  }
+    {
+        "name": "Naruto",
+        "genre": "Action",
+        "writerId": "1",
+        "id": "1"
+    },
+    {
+        "name": "One Piece",
+        "genre": "Adventure",
+        "writerId": "2",
+        "id": "2"
+    },
+    {
+        "name": "Death Note",
+        "genre": "Thriller",
+        "writerId": "3",
+        "id": "3"
+    },
+    {
+        "name": "Black Clover",
+        "genre": "Action",
+        "writerId": "1",
+        "id": "4"
+    },
+    {
+        "name": "Seven Deadly Sins",
+        "genre": "Magic",
+        "writerId": "3",
+        "id": "5"
+    }
 ]

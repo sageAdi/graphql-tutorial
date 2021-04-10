@@ -1,13 +1,14 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-unused-vars */
 const graphql = require("graphql");
 const _ = require("lodash");
+const fs = require("fs");
+const path = require("path");
 const Anime = require("../models/anime");
 const Writer = require("../models/writer");
 // const { MongoClient } = require("mongodb");
 const ANIME = require("../data/anime.json");
 const WRITER = require("../data/writer.json");
-const fs = require("fs");
-const path = require("path");
 require("dotenv").config();
 
 // const user = process.env.USER;
@@ -46,19 +47,20 @@ const {
   GraphQLSchema,
   GraphQLID,
   GraphQLList,
+  GraphQLInt,
 } = graphql;
 
 const AnimeType = new GraphQLObjectType({
   name: "Anime",
   fields: () => ({
-    _id: { type: GraphQLID },
+    id: { type: GraphQLID },
     name: { type: GraphQLString },
     genre: { type: GraphQLString },
     writer: {
       // eslint-disable-next-line no-use-before-define
       type: WriterType,
       resolve(parent, args) {
-        return _.find(WRITER, { _id: parent.writerId });
+        return _.find(WRITER, { id: parent.writerId });
         // return writer.findById(parent.writerId);
       },
     },
@@ -68,8 +70,9 @@ const AnimeType = new GraphQLObjectType({
 const WriterType = new GraphQLObjectType({
   name: "Writer",
   fields: () => ({
-    _id: { type: GraphQLID },
+    id: { type: GraphQLID },
     name: { type: GraphQLString },
+    age: { type: GraphQLString },
     anime: {
       type: new GraphQLList(AnimeType),
       resolve(parent, args) {
@@ -85,7 +88,7 @@ const RootQuery = new GraphQLObjectType({
   fields: {
     anime: {
       type: AnimeType,
-      args: { _id: { type: GraphQLID } },
+      args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         // code to query data from database
         return _.find(ANIME, { id: args.id });
@@ -94,7 +97,7 @@ const RootQuery = new GraphQLObjectType({
     },
     writer: {
       type: WriterType,
-      args: { _id: { type: GraphQLID } },
+      args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         return _.find(WRITER, { id: args.id });
         // return Writer.findById(args.id);
@@ -108,6 +111,14 @@ const RootQuery = new GraphQLObjectType({
         // return Anime.findById(args.id);
       },
     },
+    writers: {
+      type: new GraphQLList(WriterType),
+      resolve(parent, args) {
+        // code to query data from database
+        return WRITER;
+        // return Anime.findById(args.id);
+      },
+    },
   },
 });
 
@@ -118,14 +129,17 @@ const Mutation = new GraphQLObjectType({
       type: WriterType,
       args: {
         name: { type: GraphQLString },
+        age: { type: GraphQLString },
       },
       async resolve(parent, args) {
-        const writer = new Writer({
+        console.log(args);
+        const writer = {
           name: args.name,
-        });
-        let data = [WRITER]
-        data.push(writer)
-        console.log(data)
+          age: args.age,
+          id: (WRITER.length + 1).toString(),
+        };
+        const data = WRITER;
+        data.push(writer);
         fs.writeFileSync(
           path.join(__dirname, `../data/writer.json`),
           JSON.stringify(data)
@@ -144,14 +158,15 @@ const Mutation = new GraphQLObjectType({
         writerId: { type: GraphQLString },
       },
       async resolve(parent, args) {
-        const anime = new Anime({
+        console.log(args);
+        const anime = {
           name: args.name,
           genre: args.genre,
           writerId: args.writerId,
-        });
-        let data = ANIME
-        data.push(anime)
-        console.log(data)
+          id: (ANIME.length + 1).toString(),
+        };
+        const data = ANIME;
+        data.push(anime);
         fs.writeFileSync(
           path.join(__dirname, `../data/anime.json`),
           JSON.stringify(data)
